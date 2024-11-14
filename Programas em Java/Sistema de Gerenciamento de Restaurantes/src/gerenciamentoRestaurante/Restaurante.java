@@ -1,10 +1,12 @@
 package gerenciamentoRestaurante;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Restaurante {
 	
 	Scanner scanner = new Scanner(System.in);
-	int dia;
+	ArrayList<Reserva> listaDeReservas = new ArrayList<>();
+	int dia, qui = 0, sex = 0, sab = 0, dom = 0;
 	
 	public int validaDia(int dia) {
 		
@@ -31,7 +33,7 @@ public class Restaurante {
 
 	public void menu() {
 	
-		System.out.println("=============================== ");
+		System.out.println("\n=============================== ");
 		System.out.println("GERENCIAMENTO DO RESTAURANTE ");
 		System.out.println("=============================== \n");
 		System.out.println("1 - Fazer Reserva ");
@@ -59,14 +61,21 @@ public class Restaurante {
 				System.out.printf("Insira a quantidade de pessoas: ");
 				int quantidadePessoas = scanner.nextInt();
 				scanner.nextLine();
+				somaReservas(dia, quantidadePessoas);
 				Reserva reserva = new Reserva(nome, cpf, dia, quantidadePessoas);
-				// A PARTIR DAQUI É TESTE
+				listaDeReservas.add(reserva);
+				menu();
+				/* A PARTIR DAQUI É TESTE
 				System.out.println(" ");
-				System.out.println(reserva);
+				System.out.println(reserva); */
 				break;
 			case 2:
+				listarReservas();
+				menu();
 				break;
 			case 3:
+				exibeSomas();
+				menu();
 				break;
 			case 4:
 				System.exit(0);
@@ -79,6 +88,42 @@ public class Restaurante {
 		
 		scanner.close();
 		
+	}
+	
+	public void listarReservas() {
+        if (listaDeReservas.isEmpty()) {
+            System.out.println("Nenhuma reserva cadastrada\n");
+        } else {
+            System.out.println("Lista de Reservas:\n");
+            for (Reserva reserva : listaDeReservas) {
+                System.out.println(reserva);
+            }
+        }
+    }
+	
+	public void somaReservas(int dia, int quantidadePessoas) {
+		switch (dia) {
+			case 1:
+				qui += quantidadePessoas;
+				break;
+			case 2:
+				sex += quantidadePessoas;
+				break;
+			case 3:
+				sab += quantidadePessoas;
+				break;
+			case 4:
+				dom += quantidadePessoas;
+				break;		
+		}
+	}
+	
+	public void exibeSomas() {
+		System.out.println("Total de reservas por dia:");
+		System.out.println("Quinta - " + qui + " pessoas");
+		System.out.println("Sexta - " + sex + " pessoas");
+		System.out.println("Sábado - " + sab + " pessoas");
+		System.out.println("Domingo - " + dom + " pessoas");
 	}
 	
 }

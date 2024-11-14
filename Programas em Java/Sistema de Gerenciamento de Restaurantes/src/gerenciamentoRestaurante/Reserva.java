@@ -46,7 +46,7 @@ public class Reserva {
 				+ "CPF: " + cpf + " \n"
 				+ "Dia: " + formataDia(dia) + " \n"
 				+ "Número de Pessoas: " + quantidadePessoas + "\n"
-				+ "=============================== \n";
+				+ "\n=============================== \n";
 	}
 
 }
